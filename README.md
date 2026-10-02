@@ -12,7 +12,7 @@ El fraude en reclamaciones de seguros representa pérdidas de miles de millones 
 
 A través de un enfoque cuantitativo y predictivo, este análisis demuestra que:
 1. **La gravedad del siniestro (`incident_severity`)** es la variable con mayor correlación e importancia para discriminar fraudes.
-2. Los accidentes clasificados como **Major Damage (Daño Mayor)** presentan una tasa de fraude proporcionalmente superior a las demás categorías.
+2. Los accidentes clasificados como **Major Damage (Daño Mayor)** tienen una tasa de fraude del **60.5%**, contra 6.7%-12.9% en el resto de las categorías.
 3. El fraude no se correlaciona fuertemente de forma lineal con variables aisladas como la **Edad** o la **Antigüedad del cliente**, lo que ratifica la necesidad de aplicar **modelos multivariables de Machine Learning (como Random Forest)** para capturar interacciones complejas.
 
 ---
@@ -42,7 +42,7 @@ El análisis se desarrolló íntegramente en un entorno de **Jupyter Notebook** 
 2.  **Análisis de Variable Target**: Diagnóstico del desbalanceo moderado de clases (75.3% legítimo vs. 24.7% fraude) y selección de métricas adecuadas de evaluación.
 3.  **Visualizaciones Ejecutivas**: Generación de análisis univariado y bivariado cruzando variables predictoras clave contra la variable respuesta.
 4.  **Machine Learning**: Separación estratificada de datos (80% entrenamiento, 20% testeo) y entrenamiento de un clasificador **Random Forest** con balanceo de pesos.
-5.  **Evaluación**: Análisis exhaustivo del modelo mediante matriz de confusión, reporte de clasificación (Precision, Recall, F1) y la **Curva ROC-AUC** (logrando un rendimiento sobresaliente de ~0.80).
+5.  **Evaluación**: Análisis exhaustivo del modelo mediante matriz de confusión, reporte de clasificación (Precision, Recall, F1) y la **Curva ROC-AUC** (**0.82** en el set de prueba).
 
 ---
 
@@ -58,7 +58,7 @@ Para clonar y correr este análisis en tu computadora, sigue los siguientes paso
 
 2.  **Instalar las dependencias recomendadas:**
     ```bash
-    pip install pandas numpy matplotlib seaborn scikit-learn
+    pip install -r requirements.txt
     ```
 
 3.  **Iniciar Jupyter Notebook:**
@@ -71,9 +71,16 @@ Para clonar y correr este análisis en tu computadora, sigue los siguientes paso
 
 ## 📈 Conclusión del Modelo
 
-El modelo de **Random Forest Classifier** entrenado identifica de forma precisa las variables que conducen a un mayor riesgo de fraude:
-1.  **Incident Severity (Severidad del Incidente)**.
-2.  **Vehicle Claim (Monto reclamado por daño vehicular)**.
-3.  **Total Claim Amount (Monto total reclamado)**.
+| Métrica (set de prueba, 200 reclamos) | Valor |
+|---|---|
+| ROC-AUC | **0.82** |
+| Accuracy | 0.81 |
+| Recall de fraude | 0.69 |
+| Precisión de fraude | 0.60 |
+
+Las variables con mayor importancia en el modelo son:
+1.  **Incident Severity (Severidad del Incidente)**: ~19% de la importancia total.
+2.  **Insured Hobbies (Hobbies del asegurado)**: ~9%.
+3.  **Property / Vehicle / Total Claim (Montos reclamados)**: ~5-6% cada una.
 
 Con esta solución, la compañía puede prefiltrar reclamos sospechosos y enviarlos a un canal prioritario de investigación, mejorando los márgenes del negocio y acelerando el cobro para clientes con reclamos legítimos.
